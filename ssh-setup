@@ -1,0 +1,62 @@
+The error message "Unit ssh.service could not be found" indicates that the SSH server is not installed on your Ubuntu VM. To resolve this, you'll need to install the SSH server package, which is openssh-server. Here's how you can do it:
+
+Step-by-Step Instructions to Install and Start SSH Service
+Update Package Lists
+Before installing any new package, it's a good practice to update the package lists to ensure you have the latest version of packages and their dependencies.
+
+bash
+Copy code
+sudo apt update
+Install OpenSSH Server
+Install the SSH server package (openssh-server) using apt.
+
+bash
+Copy code
+sudo apt install openssh-server
+Verify SSH Service Installation
+After installation, verify that the SSH service is installed correctly.
+
+bash
+Copy code
+sudo systemctl status ssh
+If installed, this command should show the status of the SSH service.
+
+Start and Enable SSH Service
+Start the SSH service and enable it to run on boot.
+
+bash
+Copy code
+sudo systemctl start ssh
+sudo systemctl enable ssh
+Check the Status Again
+Check the status again to ensure the SSH service is running properly.
+
+bash
+Copy code
+sudo systemctl status ssh
+Check SSH Port (Optional)
+By default, SSH runs on port 22. Ensure that port 22 is open and listening.
+
+bash
+Copy code
+sudo ss -tuln | grep 22
+You should see an entry like LISTEN on port 22, indicating the SSH service is up and running.
+
+Additional Troubleshooting
+Firewall: If you have a firewall enabled (like UFW), make sure to allow SSH connections.
+
+bash
+Copy code
+sudo ufw allow ssh
+Check SSH Configuration: If you still face issues, you can check the SSH configuration file:
+
+bash
+Copy code
+sudo nano /etc/ssh/sshd_config
+Ensure the configuration file is correctly set up for your needs. After making changes, restart the SSH service:
+
+bash
+Copy code
+sudo systemctl restart ssh
+Summary
+By following these steps, you will install and start the SSH service on your Ubuntu VM. You should then be able to connect from another machine using SSH. If you continue to face issues, ensure that the network configuration between the two machines is correct and that no firewalls are blocking SSH traffic.
